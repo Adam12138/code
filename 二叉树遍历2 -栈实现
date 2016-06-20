@@ -1,0 +1,86 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> result;
+        const TreeNode *p;
+        stack<const TreeNode *> s;
+        
+        p = root;
+        if(p!=nullptr)
+            s.push(p);
+        while(!s.empty()){
+            p=s.top();
+            s.pop();
+            result.push_back(p->val);
+            
+            if(p->right != nullptr) s.push(p->right);
+            if(p->left !=nullptr) s.push(p->left);
+        }
+        return result;
+    }
+};
+
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> result;
+        const TreeNode *p ;
+        stack<const TreeNode *> s;
+        p=root;
+       
+        while(!s.empty()||p!=nullptr){
+            if(p!=nullptr){
+                s.push(p);
+                p=p->left;
+            }else{
+                p=s.top();
+                s.pop();
+                result.push_back(p->val);
+                p=p->right;
+            }
+        }
+        return result;
+    }
+};
+
+
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> result;
+        const TreeNode *p,*q;
+        stack <const TreeNode *> s;
+        p = root;
+        do{
+            while(p!=nullptr){
+                s.push(p);
+                p=p->left;
+            }
+            q=nullptr;
+            while(!s.empty()){
+                p=s.top();
+                s.pop();
+                if(p->right == q){//if right subtree is null or already reached visit the node
+                    result.push_back(p->val);
+                    q=p;
+                }else{
+                    //right subtree not visited, push the node first
+                    s.push(p);
+                    p = p->right;
+                    break;
+                }
+            }
+        }while(!s.empty());
+        return result;
+    }
+};
