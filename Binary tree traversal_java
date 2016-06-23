@@ -1,0 +1,98 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        TreeNode p;
+        Stack<TreeNode> s = new Stack<TreeNode>();
+        p=root;
+        if(p!=null)
+            s.push(p);
+        while(!s.empty()){
+            p=s.pop();
+            result.add(p.val);
+            if(p.right!=null)
+            s.push(p.right);
+            if(p.left!=null)
+            s.push(p.left);
+        }
+        return result;
+    }
+}
+
+//inOrder
+
+public class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        TreeNode p = root;
+        
+        Stack<TreeNode> s = new Stack<TreeNode>();
+        while(!s.empty()||p!=null){
+            if(p!=null){
+                s.push(p);
+                p=p.left;
+            }else{
+                p=s.pop();
+                result.add(p.val);
+                p=p.right;
+            }
+        }
+        return result;
+    }
+}
+
+//PostOrder
+
+public class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        TreeNode p,q;
+        Stack<TreeNode> s = new Stack<TreeNode>();
+        
+        p=root;
+        do{
+            while(p!=null){
+                s.push(p);
+                p=p.left;
+            }
+            q=null;
+            while(!s.empty()){
+                p=s.pop();
+                if(p.right == q){
+                    result.add(p.val);
+                    q=p;
+                }else{
+                    s.push(p);
+                    p=p.right;
+                    break;
+                }
+            }
+        }
+        while(!s.empty());
+        return result;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
