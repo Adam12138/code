@@ -33,3 +33,16 @@ def file2matrix(filename):
         classLabelVector.append(int(listFromLine[-1]))
         index += 1
     return returnMat,classLabelVector
+    
+    
+    if __name__ == '__main__':
+    pass
+    group, labels = createDataSet()
+    label = classify0([0, 0], group, labels, 3)
+    print label
+    #, 15.0*array(datingLabels), 15.0*array(datingLabels)
+    datingMat, datingLabels = file2matrix('E:/machinelearninginaction/Ch02/datingTestSet2.txt')
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(datingMat[:,0], datingMat[:,1], 15.0*array(datingLabels), 15.0*array(datingLabels))
+    plt.show()
