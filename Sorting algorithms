@@ -5,19 +5,19 @@ void quickSort(vector &v ,int left,int right){
   int high = right;
   int key = v[left];
   
-  while(low<high){
-    while(low<high && v[high]>v[key]){
-      high--;
+    while(low<high){
+      while(low<high && v[high]>v[key]){
+        high--;
+      }
+      v[low] = v[high];
+      while(low<high && v[low]<v[key]){
+        low++;
+      }
+      v[high] = v[low];
     }
-    v[low] = v[high];
-    while(low<high && v[low]<v[key]){
-      low++;
-    }
-    v[high] = v[low];
     v[low] = key;
     quickSort(v,left,low-1);
     quickSort(v,low+1,right);
-  }
 }
 
 
