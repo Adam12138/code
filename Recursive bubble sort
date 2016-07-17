@@ -1,0 +1,16 @@
+void bubbleSort(int *data,int start,int end)  
+{  
+    if (start < end) {  
+        int temp = 0;  
+        int length = end - start + 1;  
+        for (int i = start; i < length - 1; i ++) {  
+            if (data[i] < data[i + 1]) {  
+                temp = data[i];  
+                data[i] = data[i + 1];  
+                data[i + 1] = temp;  
+            }  
+        }  
+        end --;  
+        bubbleSort(data,start,end);  
+    }  
+}  
