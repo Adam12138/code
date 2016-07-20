@@ -43,7 +43,7 @@ public class Stack {
     }  
 }  
 
-//implement stack using array(unfix length)
+//implement stack using array(unfix length, but adding speed is slower)
 
 import java.util.Arrays;  
   
@@ -104,7 +104,7 @@ public class UnboundedStack {
 }  
 
 
-//implement stack using lingklist
+//implement stack using lingklist( unfix length , and fast in adding element )
 
 public class LinkedList {  
     private class Data{  
