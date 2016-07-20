@@ -1,0 +1,173 @@
+//implement stack using arrays. (Fix length)
+
+public class Stack {  
+    private int top = -1;  
+    private Object[] objs;  
+      
+    public Stack(int capacity) throws Exception{  
+        if(capacity < 0)  
+            throw new Exception("Illegal capacity:"+capacity);  
+        objs = new Object[capacity];  
+    }  
+      
+    public void push(Object obj) throws Exception{  
+        if(top == objs.length - 1)  
+            throw new Exception("Stack is full!");  
+        objs[++top] = obj;  
+    }  
+      
+    public Object pop() throws Exception{  
+        if(top == -1)  
+            throw new Exception("Stack is empty!");  
+        return objs[top--];  
+    }  
+      
+    public void dispaly(){  
+        System.out.print("bottom -> top: | ");  
+        for(int i = 0 ; i <= top ; i++){  
+            System.out.print(objs[i]+" | ");  
+        }  
+        System.out.print("\n");  
+    }  
+      
+    public static void main(String[] args) throws Exception{  
+        Stack s = new Stack(2);  
+        s.push(1);  
+        s.push(2);  
+        s.dispaly();  
+        System.out.println(s.pop());  
+        s.dispaly();  
+        s.push(99);  
+        s.dispaly();  
+        s.push(99);  
+    }  
+}  
+
+//implement stack using array(unfix length)
+
+import java.util.Arrays;  
+  
+public class UnboundedStack {  
+    private int top = -1;  
+    private Object[] objs;  
+      
+    public UnboundedStack() throws Exception{  
+        this(10);  
+    }  
+      
+    public UnboundedStack(int capacity) throws Exception{  
+        if(capacity < 0)  
+            throw new Exception("Illegal capacity:"+capacity);  
+        objs = new Object[capacity];  
+    }  
+      
+    public void push(Object obj){  
+        if(top == objs.length - 1){  
+            this.enlarge();  
+        }  
+        objs[++top] = obj;  
+    }  
+      
+    public Object pop() throws Exception{  
+        if(top == -1)  
+            throw new Exception("Stack is empty!");  
+        return objs[top--];  
+    }  
+      
+    private void enlarge(){  
+        int num = objs.length/3;  
+        if(num == 0)  
+            num = 1;  
+        objs = Arrays.copyOf(objs, objs.length + num);  
+    }  
+      
+    public void dispaly(){  
+        System.out.print("bottom -> top: | ");  
+        for(int i = 0 ; i <= top ; i++){  
+            System.out.print(objs[i]+" | ");  
+        }  
+        System.out.print("\n");  
+    }  
+      
+    public static void main(String[] args) throws Exception{  
+        UnboundedStack us = new UnboundedStack(2);  
+        us.push(1);  
+        us.push(2);  
+        us.dispaly();  
+        System.out.println(us.pop());  
+        us.dispaly();  
+        us.push(99);  
+        us.dispaly();  
+        us.push(99);  
+        us.dispaly();  
+    }  
+}  
+
+
+//implement stack using lingklist
+
+public class LinkedList {  
+    private class Data{  
+        private Object obj;  
+        private Data next = null;  
+          
+        Data(Object obj){  
+            this.obj = obj;  
+        }  
+    }  
+      
+    private Data first = null;  
+      
+    public void insertFirst(Object obj){  
+        Data data = new Data(obj);  
+        data.next = first;  
+        first = data;  
+    }  
+      
+    public Object deleteFirst() throws Exception{  
+        if(first == null)  
+            throw new Exception("empty!");  
+        Data temp = first;  
+        first = first.next;  
+        return temp.obj;  
+    }  
+              
+    public void display(){  
+        if(first == null)  
+            System.out.println("empty");  
+        System.out.print("top -> bottom : | ");  
+        Data cur = first;  
+        while(cur != null){  
+            System.out.print(cur.obj.toString() + " | ");  
+            cur = cur.next;  
+        }  
+        System.out.print("\n");  
+    }  
+}  
+
+
+public class LinkedListStack {  
+    private LinkedList ll = new LinkedList();  
+      
+    public void push(Object obj){  
+        ll.insertFirst(obj);  
+    }  
+      
+    public Object pop() throws Exception{  
+        return ll.deleteFirst();  
+    }  
+      
+    public void display(){  
+        ll.display();  
+    }  
+      
+    public static void main(String[] args) throws Exception{  
+        LinkedListStack lls = new LinkedListStack();  
+        lls.push(1);  
+        lls.push(2);  
+        lls.push(3);  
+        lls.display();  
+        System.out.println(lls.pop());  
+        lls.display();  
+    }  
+}  
