@@ -45,6 +45,12 @@ class MyStack {
             queue2.poll();
         }
     }
+     // Return whether the stack is empty.
+    public boolean empty() {
+        return queue1.isEmpty() && queue2.isEmpty();
+    }
+}
+    
  
     // Get the top element.
     public int top() {
