@@ -1,0 +1,50 @@
+
+//
+
+#include "stdafx.h"
+#include<iostream>
+#include<string>
+#include<iomanip>
+#include<sstream>
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	string s1;
+	string s2;
+	string s3;
+	int count = 0;
+	float ratio;
+	while (cin>>s1){
+		cin >> s2;
+		if (s1.size() != s2.size())
+			return 0;
+		for (int i = 0; i < s1.size(); i++){
+			int t = s1[i];
+			cout << t << endl;
+			if ((48 <= t && t<= 57) || (65 <= t && t <= 90) || (97 <= t && t <= 122))
+				s3.append("1");
+			else
+				s3.append("0");
+		}
+		cout << s3 << endl;
+		for (int i = 0; i < s1.size(); i++){
+			if (s2[i] == s3[i])
+				count++;
+		}
+		
+
+		ratio = float(100.0*float(count) / float(s1.size()));
+		/*ratio = ((float)((int)((ratio + 0.005) * 100))) / 100;
+		stringstream ss;
+		ss << ratio;
+		string tt;
+		tt = ss.str();
+		ss.clear();
+		cout << tt << "%" << endl;*/
+		printf("%.2lf%%\n", ratio);
+	}
+	
+	return 0;
+}
+
