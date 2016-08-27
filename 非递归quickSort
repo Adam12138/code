@@ -1,3 +1,20 @@
+
+
+int partition(vector<Comparable> &vec,int low,int high){
+    Comparable pivot=vec[low];  //任选元素作为轴，这里选首元素
+    while(low<high){
+        while(low<high && vec[high]>=pivot)
+            high--;
+        vec[low]=vec[high];
+        while(low<high && vec[low]<=pivot)
+            low++;
+        vec[high]=vec[low];
+    }
+    //此时low==high
+    vec[low]=pivot;
+    return low;
+}
+
 void quicksort2(vector<Comparable>&vec,int low,int high){
     stack<int> st;
     if(low<high){
