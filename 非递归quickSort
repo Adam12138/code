@@ -1,7 +1,5 @@
-void quicksort2(vector<Comparable>
- &vec,int low,int high){
-    stack<int>
- st;
+void quicksort2(vector<Comparable>&vec,int low,int high){
+    stack<int> st;
     if(low<high){
         int mid=partition(vec,low,high);
         if(low<mid-1){
