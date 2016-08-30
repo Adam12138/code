@@ -6,11 +6,11 @@ void quickSort(vector &v ,int left,int right){
   int key = v[left];
   
     while(low<high){
-      while(low<high && v[high]>v[key]){
+      while(low<high && v[high]>key){
         high--;
       }
       v[low] = v[high];
-      while(low<high && v[low]<v[key]){
+      while(low<high && v[low]<key){
         low++;
       }
       v[high] = v[low];
