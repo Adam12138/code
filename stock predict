@@ -1,0 +1,27 @@
+'''
+1 2 3 4 5 6 7 8 9
+1 2 1 2 3 2 3 4 5
+stock rule is :
+add one 1 minus 1 add two 1 minus 1 add three 1  minus 1...
+predict the n th days stock
+'''
+'''each add-minus  round  day minus profit add 2'''
+import sys
+
+while 1:
+    line1 = sys.stdin.readline()
+    list1 = line1.strip().split()
+    if list1[0]!= "":
+    	day = int(list1[0])
+    else:
+    	break
+    sum1 = day
+    interval = 2
+    diff = 0
+    while sum1>interval:
+    	diff +=2
+        sum1 -= interval
+        interval+=1
+    profit = day - diff
+    print profit
+
