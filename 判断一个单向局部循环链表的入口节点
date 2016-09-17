@@ -1,0 +1,33 @@
+转自：http://www.cnblogs.com/tdyizhen1314/archive/2012/04/03/2431124.html
+思想为：假设该节点在x位置处，假设步长为1的指针和步长为2的指针相遇在x+z处，循环长度为y，那么2（x+z）-（x+z）=k*y,则x=k*y-z，那么当一个指针再从开始处后移时，另一个指针从相遇点开始后移时，这两个指针就会在循环开始触相遇。
+
+代码如下：
+node *findLoopPlace(node *head,unsigned int* place==NULL)
+{
+     //查找循环的位置，place存储位置
+     if(!loop(head))
+     {
+           return NULL;
+     } 
+     node *one=head;
+     node *two=head->next;
+     unsigned int count=1;
+     
+     while(one!=two)
+     {
+         one=one->next;
+         two=two->next->next;
+     }
+     one=head;
+     while(one!=two)
+     {
+          if(count!=1)
+          {
+                one=one->next;
+          }
+          two=two->next;
+          count++;
+     }
+     *place=count;
+     return one;
+}
