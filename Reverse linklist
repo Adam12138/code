@@ -1,0 +1,19 @@
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head==nullptr) return nullptr;  
+        if(head->next==nullptr) return head; 
+        ListNode dummy(-1);
+        dummy.next=head;
+        ListNode *const head2=&dummy;
+        ListNode *prev=head2->next;
+        ListNode *cur=prev->next;
+        while(cur!=nullptr){
+            prev->next=cur->next;
+            cur->next=head2->next;
+            head2->next=cur;
+            cur=prev->next;
+        }
+        return dummy.next;
+    }
+};
