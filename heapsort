@@ -1,0 +1,70 @@
+void AdjustHeap(int A[], int hLen, int i)
+   7: {
+   8:     int left = LeftChild(i);  //节点i的左孩子
+   9:     int right = RightChild(i); //节点i的右孩子节点
+  10:     int largest = i;
+  11:     int temp;
+  12:  
+  13:     while(left < hLen || right < hLen)
+  14:     {
+  15:         if (left < hLen && A[largest] < A[left])
+  16:         {
+  17:             largest = left;
+  18:         }
+  19:         
+  20:         if (right < hLen && A[largest] < A[right])
+  21:         {
+  22:             largest = right;
+  23:         }
+  24:  
+  25:         if (i != largest)   //如果最大值不是父节点
+  26:         {
+  27:              temp = A[largest]; //交换父节点和和拥有最大值的子节点交换
+  28:              A[largest] = A[i];
+  29:              A[i] = temp;
+  30:  
+  31:             i = largest;         //新的父节点，以备迭代调堆
+  32:             left = LeftChild(i);  //新的子节点
+  33:             right = RightChild(i);
+  34:         }
+  35:         else
+  36:         {
+  37:             break;
+  38:         }
+  39:     }
+  40: }
+  41:  
+  42: /*
+  43:     输入：数组A，堆的大小hLen
+     功能：建堆
+ */
+ void BuildHeap(int A[], int hLen)
+ {
+     int i;
+     int begin = hLen/2 - 1;  //最后一个非叶子节点
+     for (i = begin; i >= 0; i--)
+     {
+         AdjustHeap(A, hLen, i);  
+    }
+ }
+ 
+  /*
+      输入：数组A，待排序数组的大小aLen
+  58:     功能：堆排序
+  59: */
+  60: void HeapSort(int A[], int aLen)
+  61: {
+  62:     int hLen = aLen;
+  63:     int temp;
+  64:  
+  65:     BuildHeap(A, hLen);      //建堆
+  66:  
+  67:     while (hLen > 1)
+  68:     {
+  69:         temp = A[hLen-1];    //交换堆的第一个元素和堆的最后一个元素
+  70:         A[hLen-1] = A[0];
+  71:         A[0] = temp;
+  72:         hLen--;        //堆的大小减一
+  73:         AdjustHeap(A, hLen, 0);  //调堆
+  74:     }
+  75: }
