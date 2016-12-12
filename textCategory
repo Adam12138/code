@@ -1,0 +1,120 @@
+__author__ = 'Adam'
+
+# -*- coding: utf-8 -*-
+import os
+import jieba
+import nltk
+
+
+folder_path = 'C:\Users\Adam\Desktop/text\SogouC.reduced\Reduced'
+#folder_path = 'C:\LIFEITENG\SogouC.mini\Sample'
+folder_list = os.listdir(folder_path)
+print folder_list
+class_list = [] ##
+nClass = 0
+N = 500
+train_set = []
+test_set = []
+all_words = {}
+
+
+import time
+process_times = [] ##
+for i in range(len(folder_list)):
+    new_folder_path = folder_path + '\\' + folder_list[i]
+    files = os.listdir(new_folder_path)
+    class_list.append(nClass)
+    nClass += 1
+    j = 0
+    nFile = min([len(files), N])
+    print'*****************'
+    print nFile
+    print
+    print'*****************'
+    for file in files:
+        if j > N:
+            break
+        starttime = time.clock()
+
+        fobj = open(new_folder_path+'\\'+file, 'r')
+        raw = fobj.read()
+        word_cut = jieba.cut(raw, cut_all=False)
+        word_list = list(word_cut)
+        #print word_list
+        for word in word_list:
+            #if word in all_words.keys():
+            if all_words.has_key(word):
+                all_words[word] += 1
+            else:
+                all_words[word] = 0
+        if j > 0.1 * nFile:
+            train_set.append((word_list, class_list[i]))
+        else:
+            test_set.append((word_list, class_list[i]))
+        j += 1
+        endtime = time.clock()
+        process_times.append(endtime-starttime)
+        print "Folder ", i, "-file-", j,  "all_words length = ", len(all_words.keys()),\
+        "process time:", (endtime-starttime)
+
+        print len(all_words)
+##
+all_words_list = sorted(all_words.items(), key=lambda e: e[1], reverse=True)
+word_features = []
+##
+## word_features
+for t in range(150, 1500, 1):
+    word_features.append(all_words_list[t][0])
+
+
+def document_features(document):
+    document_words = set(document)
+    features = {}
+    for word in word_features:
+        features['contains(%s)' % word] = (word in document_words)
+    return features
+
+
+def predict(address):
+    fr = open(address, 'r+')
+    text = fr.read()
+    text.split()
+    word_cut = jieba.cut(text, cut_all=False)
+    word_list = list(word_cut)
+    #print word_list
+    data = document_features(word_list)
+    print "text example: ", classifier.classify(data)
+
+##
+train_data = [(document_features(d), c) for (d, c) in train_set]
+test_data = [(document_features(d), c) for (d, c) in test_set]
+print "train number:", len(train_data), "\n test number:", len(test_data)
+##
+classifier = nltk.NaiveBayesClassifier.train(train_data)
+print "test accuracy:", nltk.classify.accuracy(classifier, test_data)
+##
+##
+address1 = "1491.txt"
+address2 = "1492.txt"
+address3 = "1493.txt"
+address4 = "1494.txt"
+address5 = "1495.txt"
+address6 = "1496.txt"
+address7 = "1497.txt"
+address8 = "1498.txt"
+address9 = "1499.txt"
+address10 = "1500.txt"
+predict(address1)
+predict(address2)
+predict(address3)
+predict(address4)
+predict(address5)
+predict(address6)
+predict(address7)
+predict(address8)
+predict(address9)
+predict(address10)
+import pylab
+pylab.plot(range(len(process_times)), process_times, 'b.')
+pylab.show()
+
