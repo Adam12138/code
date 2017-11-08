@@ -1,0 +1,15 @@
+读取
+    df_origin = pd.read_csv('negtive914.txt', '\t', encoding="gb2312")
+    #print "df_origin", len(df_origin)
+    datadf = df_origin.loc[:, ['mtuserid', 'waybillid', 'requesturi', 'waybillids', 'loggenutime']]
+    #df = datadf.drop_duplicates()
+    dfranked = datadf.sort_index(by=['mtuserid', 'loggenutime'])
+    dfuser = dfranked.loc[:, ['mtuserid']]
+转换列表
+    arrayuser= pd.np.array(dfuser)
+    list_get_user = arrayuser.tolist()
+输出
+    dfresult = pd.DataFrame(dataSet, columns=['duration', 'refreshnum', 'frequency', 'detailNum', 'interval', 'update_refresh',
+                                     'label','riderid'])
+    dfresult.to_csv('9145.csv')
+    
